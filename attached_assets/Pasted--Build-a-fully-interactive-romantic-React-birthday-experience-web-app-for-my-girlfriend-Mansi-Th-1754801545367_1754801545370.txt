@@ -1,0 +1,219 @@
+🔥 Build a fully interactive, romantic React birthday experience web app for my girlfriend Mansi. This is a gift from me, Hari, for her birthday on Tuesday, August 12, 2025.
+
+It should feel magical, flirty, emotional, modern, and very romantic — the kind of thing she’ll never forget.
+
+This app will be deployed on Vercel, so build it as a static frontend using React (Vite preferred).
+
+🎯 APP STRUCTURE OVERVIEW:
+✅ Sections (each as a React component):
+⏳ CountdownScreen
+
+🌹 IntroScreen
+
+💘 FlirtyQuiz
+
+🎁 GiftBoxReveal
+
+💌 LoveMessage
+
+🎇 FinalScreen (Confetti + Thank You)
+
+⏳ 1. CountdownScreen
+Show full-screen countdown to:
+
+javascript
+Copy
+Edit
+new Date("2025-08-12T00:00:00+05:30")
+Format: Days : Hours : Minutes : Seconds
+
+Responsive and accurate (auto-syncs time using local browser)
+
+At 00:00, auto-transition to next screen
+
+🌹 2. IntroScreen
+Romantic greeting:
+
+"Happy Birthday, Mansi 🎉 From Hari with all my love"
+
+Background:
+
+Blooming rose Lottie animation
+
+Soft floating hearts or sparkles
+
+Romantic music playing in background: add /public/romantic.mp3 and play it in <audio autoplay loop muted={false}>
+
+Button: “Begin Your Surprise” → goes to Flirty Quiz
+
+💘 3. FlirtyQuiz (with Multiple-Choice)
+Fun flirty questions with 4 options each
+
+After each question, show animated feedback (hearts, “Correct 💖”)
+
+Store answers in state (but no backend needed)
+
+After last question, show a score screen (with confetti or heart burst)
+
+✨ Flirty Questions (from Hari to Mansi):
+1. Where did we first meet?
+A. SDMA ✅
+
+B. In your dreams
+
+C. Park
+
+D. Previous Life
+
+2. What’s Hari’s favorite thing about Mansi?
+A. Her magical eyes ✨
+
+B. Her laugh that heals everything
+
+C. Her hugs — better than therapy
+
+D. Literally everything ✅
+
+3. How much do you love Hari?
+A. To the moon and never back 🌙
+
+B. As much as he loves pizza 🍕
+
+C. More than yesterday, less than tomorrow
+
+D. Infinitely, endlessly, stupidly ✅
+
+4. What would be the perfect date with Hari?
+A. Candlelit dinner under the stars 🌌
+
+B. Movie night in cuddles and chaos 🍿
+
+C. Paris but only if he packs
+
+D. Honestly, every moment is perfect ✅
+
+5. What makes us the best couple?
+A. We complete each other's memes
+
+B. We make storms feel like sunsets
+
+C. Our love is louder than doubts ✅
+
+D. We argue over food — then share it anyway
+
+🎁 4. GiftBoxReveal
+Animated gift box using Lottie or CSS
+
+On click: box opens with one random romantic gift revealed
+
+Gifts pool:
+
+💍 A promise of forever
+
+💋 Unlimited kisses
+
+🧸 One cuddle per second forever
+
+🎶 A playlist of our love
+
+🪄 A date you’ll never forget (just wait)
+
+Let her click “Try Another” once if she wants
+
+💌 5. LoveMessage
+Show personal heartfelt message from Hari to Mansi
+
+Use typewriter effect to reveal slowly
+
+Sample love letter:
+
+"Mansi,
+You’re the spark in my soul,
+the calm in my chaos,
+the reason I look forward to every tomorrow.
+Every heartbeat spells your name,
+and I wouldn’t want it any other way.
+Happy Birthday, my love. Forever yours,
+Hari ❤️"
+
+Animated hearts in background
+
+Add fade-in heart or “I love you” at end
+
+🎇 6. FinalScreen
+Show:
+
+“Thanks for sharing this moment with me, Mansi 💖
+I love you more every day.
+– Hari”
+
+Launch animated confetti explosion (react-confetti)
+
+Optional:
+
+Fireworks animation in background
+
+Button: “Replay Surprise” or “Sit with the music…”
+
+📱 Design & UX
+Romantic theme: pink, purple, rose gold palette
+
+Fonts: Elegant + playful (e.g., "Dancing Script", "Poppins")
+
+Use Tailwind CSS or styled-components
+
+Smooth transitions (framer-motion)
+
+Works beautifully on mobile
+
+🧑‍💻 Tech Stack & Structure
+React (Vite or CRA)
+
+Components:
+
+pgsql
+Copy
+Edit
+/src
+├── App.jsx
+├── components/
+│   ├── CountdownScreen.jsx
+│   ├── IntroScreen.jsx
+│   ├── FlirtyQuiz.jsx
+│   ├── GiftBoxReveal.jsx
+│   ├── LoveMessage.jsx
+│   ├── FinalScreen.jsx
+├── assets/
+│   ├── rose.json (Lottie)
+│   ├── background.mp3
+│   ├── gift-box.json
+Add animations:
+
+react-lottie
+
+framer-motion
+
+react-confetti
+
+📦 Output Requirements
+Fully working React app
+
+README.md with setup + deploy instructions
+
+package.json with all dependencies
+
+Ready to deploy on Vercel as static frontend
+
+💡 Bonus Touches (Optional But Amazing)
+Add a heart trail cursor (CSS or JS)
+
+Small timer that counts how long Mansi has been reading
+
+Surprise “Photo Gallery” if image URLs are given
+
+Use react-router-dom if multiple pages (optional)
+
+⚠️ Final Note:
+
+⚠️ Do not include any branding, AI credit, or development tags.
+This is a personal romantic gift from Hari to Mansi. It should feel like it came only from the heart.

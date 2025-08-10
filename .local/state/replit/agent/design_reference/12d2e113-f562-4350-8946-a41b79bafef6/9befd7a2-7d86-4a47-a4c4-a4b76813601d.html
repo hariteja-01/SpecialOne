@@ -1,0 +1,603 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mansi ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rose-gold': '#E8B4CB',
+                        'blush': '#FFB6C1',
+                        'deep-purple': '#8B5A8B',
+                        'lavender': '#E6E6FA',
+                        'romantic-gold': '#FFD700',
+                        'cream': '#FFF8DC'
+                    },
+                    fontFamily: {
+                        'dancing': ['Dancing Script', 'cursive'],
+                        'poppins': ['Poppins', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'typewriter': 'typewriter 4s steps(40) 1s 1 normal both',
+                        'fadeInUp': 'fadeInUp 0.8s ease-out',
+                        'heartbeat': 'heartbeat 1.5s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        typewriter: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' }
+                        },
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(30px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        heartbeat: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.1)' }
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            cursor: none;
+            overflow-x: hidden;
+        }
+        
+        .heart-cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            color: #E8B4CB;
+            font-size: 20px;
+            transform: translate(-50%, -50%);
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(232, 180, 203, 0.7);
+            user-select: none;
+            pointer-events: none;
+            animation: float 6s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .gift-box {
+            transition: transform 0.3s ease;
+        }
+        
+        .gift-box:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+        
+        .quiz-option {
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(232, 180, 203, 0.3);
+        }
+        
+        .quiz-option.selected {
+            background: linear-gradient(135deg, #E8B4CB, #FFB6C1);
+            color: white;
+            transform: scale(1.02);
+        }
+        
+        .rose-bg {
+            background: linear-gradient(135deg, #FFB6C1 0%, #E8B4CB 50%, #8B5A8B 100%);
+        }
+        
+        .romantic-bg {
+            background: radial-gradient(circle at 30% 50%, rgba(232, 180, 203, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+                        linear-gradient(135deg, #FFF8DC 0%, #E6E6FA 100%);
+        }
+    </style>
+</head>
+<body class="font-poppins">
+    <!-- @COMPONENT: HeartCursor -->
+    <div class="heart-cursor" id="heartCursor">💖</div>
+    <!-- @END_COMPONENT: HeartCursor -->
+
+    <!-- @COMPONENT: FloatingHearts -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+    <!-- @END_COMPONENT: FloatingHearts -->
+
+    <!-- @COMPONENT: AudioPlayer -->
+    <audio id="backgroundMusic" loop data-mock="true" data-implementation="Add /public/romantic.mp3 file">
+        <source src="/romantic.mp3" type="audio/mpeg">
+    </audio>
+    <!-- @END_COMPONENT: AudioPlayer -->
+
+    <!-- @STATE: currentScreen:string = 'countdown' -->
+    <!-- @STATE: quizAnswers:array = [] -->
+    <!-- @STATE: quizScore:number = 0 -->
+    <!-- @STATE: currentQuestion:number = 0 -->
+    <!-- @STATE: giftRevealed:string = '' -->
+
+    <div id="app" class="min-h-screen">
+        <!-- @COMPONENT: CountdownScreen -->
+        <section id="countdownScreen" class="min-h-screen flex items-center justify-center romantic-bg relative">
+            <div class="floating-hearts"></div>
+            
+            <div class="text-center z-10 px-4">
+                <div class="animate-fadeInUp">
+                    <h1 class="font-dancing text-6xl md:text-8xl text-deep-purple mb-8 animate-pulse-slow">
+                        Counting Down...
+                    </h1>
+                    <p class="font-poppins text-xl md:text-2xl text-gray-700 mb-12">
+                        Until Mansi's Special Day ✨
+                    </p>
+                </div>
+                
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl max-w-4xl mx-auto animate-fadeInUp" style="animation-delay: 0.5s">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                        <div class="text-center">
+                            <div class="bg-gradient-to-br from-rose-gold to-blush rounded-2xl p-6 shadow-lg mb-4">
+                                <div class="text-4xl md:text-6xl font-bold text-white" data-bind="countdown.days">15</div>
+                            </div>
+                            <p class="font-poppins text-deep-purple font-semibold text-lg">Days</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-gradient-to-br from-blush to-lavender rounded-2xl p-6 shadow-lg mb-4">
+                                <div class="text-4xl md:text-6xl font-bold text-white" data-bind="countdown.hours">08</div>
+                            </div>
+                            <p class="font-poppins text-deep-purple font-semibold text-lg">Hours</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-gradient-to-br from-lavender to-deep-purple rounded-2xl p-6 shadow-lg mb-4">
+                                <div class="text-4xl md:text-6xl font-bold text-white" data-bind="countdown.minutes">42</div>
+                            </div>
+                            <p class="font-poppins text-deep-purple font-semibold text-lg">Minutes</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-gradient-to-br from-deep-purple to-rose-gold rounded-2xl p-6 shadow-lg mb-4">
+                                <div class="text-4xl md:text-6xl font-bold text-white" data-bind="countdown.seconds">23</div>
+                            </div>
+                            <p class="font-poppins text-deep-purple font-semibold text-lg">Seconds</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 text-center">
+                        <p class="font-dancing text-2xl md:text-3xl text-deep-purple">
+                            August 12, 2025 at Midnight 🌙
+                        </p>
+                        <p class="font-poppins text-gray-600 mt-2">IST</p>
+                    </div>
+                </div>
+                
+                <!-- Auto-transition when countdown reaches zero -->
+                <button class="mt-8 bg-gradient-to-r from-rose-gold to-blush text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" 
+                        data-event="click:startExperience" data-mock="true">
+                    🎉 It's Time! Start the Magic
+                </button>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: CountdownScreen -->
+
+        <!-- @COMPONENT: IntroScreen -->
+        <section id="introScreen" class="min-h-screen flex items-center justify-center rose-bg relative hidden">
+            <div class="floating-hearts"></div>
+            
+            <!-- Lottie Animation Placeholder -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-30">
+                <!-- @FUNCTIONALITY: Implement Lottie animation of blooming roses -->
+                <div class="w-96 h-96 bg-gradient-to-br from-transparent to-white/20 rounded-full animate-pulse-slow" data-mock="true" data-implementation="Replace with Lottie rose animation"></div>
+            </div>
+            
+            <div class="text-center z-10 px-4 max-w-4xl mx-auto">
+                <div class="animate-fadeInUp">
+                    <h1 class="font-dancing text-7xl md:text-9xl text-white mb-6 animate-heartbeat">
+                        Happy Birthday
+                    </h1>
+                    <h2 class="font-dancing text-6xl md:text-8xl text-romantic-gold mb-8 animate-pulse-slow">
+                        Mansi 🎉
+                    </h2>
+                </div>
+                
+                <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl animate-fadeInUp" style="animation-delay: 0.5s">
+                    <p class="font-poppins text-2xl md:text-3xl text-deep-purple mb-8">
+                        From Hari with all my love 💕
+                    </p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="text-center animate-float">
+                            <div class="text-6xl mb-4">🌹</div>
+                            <p class="font-poppins text-deep-purple">For your beauty</p>
+                        </div>
+                        <div class="text-center animate-float" style="animation-delay: 1s">
+                            <div class="text-6xl mb-4">💖</div>
+                            <p class="font-poppins text-deep-purple">For your heart</p>
+                        </div>
+                        <div class="text-center animate-float" style="animation-delay: 2s">
+                            <div class="text-6xl mb-4">✨</div>
+                            <p class="font-poppins text-deep-purple">For your magic</p>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-gradient-to-r from-deep-purple to-rose-gold text-white px-10 py-4 rounded-full font-semibold text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-pulse-slow"
+                            data-event="click:startQuiz">
+                        💝 Begin Your Surprise
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: IntroScreen -->
+
+        <!-- @COMPONENT: FlirtyQuiz -->
+        <section id="quizScreen" class="min-h-screen romantic-bg relative hidden">
+            <div class="floating-hearts"></div>
+            
+            <div class="container mx-auto px-4 py-8 max-w-4xl">
+                <!-- Quiz Header -->
+                <div class="text-center mb-8 animate-fadeInUp">
+                    <h1 class="font-dancing text-5xl md:text-7xl text-deep-purple mb-4">
+                        Flirty Quiz Time 💘
+                    </h1>
+                    <div class="bg-white/80 rounded-full px-6 py-2 inline-block">
+                        <span class="font-poppins text-deep-purple font-semibold">Question <span data-bind="currentQuestion + 1">1</span> of 5</span>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="bg-white/50 rounded-full h-4 mb-8 overflow-hidden">
+                    <div class="bg-gradient-to-r from-rose-gold to-blush h-full rounded-full transition-all duration-500" style="width: 20%" data-bind="(currentQuestion / 5) * 100 + '%'"></div>
+                </div>
+                
+                <!-- Question Card -->
+                <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl mb-8 animate-fadeInUp">
+                    <h2 class="font-dancing text-3xl md:text-4xl text-deep-purple mb-8 text-center" data-bind="questions[currentQuestion].question">
+                        Where did we first meet?
+                    </h2>
+                    
+                    <!-- @MAP: options.map(option => ( -->
+                    <div class="space-y-4">
+                        <button class="quiz-option w-full p-6 bg-gradient-to-r from-lavender to-cream rounded-2xl text-left font-poppins text-lg text-deep-purple border-2 border-transparent hover:border-rose-gold"
+                                data-event="click:selectAnswer" data-value="A">
+                            <span class="font-bold text-rose-gold mr-4">A.</span>
+                            SDMA ✅
+                        </button>
+                        <button class="quiz-option w-full p-6 bg-gradient-to-r from-lavender to-cream rounded-2xl text-left font-poppins text-lg text-deep-purple border-2 border-transparent hover:border-rose-gold"
+                                data-event="click:selectAnswer" data-value="B">
+                            <span class="font-bold text-rose-gold mr-4">B.</span>
+                            In your dreams
+                        </button>
+                        <button class="quiz-option w-full p-6 bg-gradient-to-r from-lavender to-cream rounded-2xl text-left font-poppins text-lg text-deep-purple border-2 border-transparent hover:border-rose-gold"
+                                data-event="click:selectAnswer" data-value="C">
+                            <span class="font-bold text-rose-gold mr-4">C.</span>
+                            Park
+                        </button>
+                        <button class="quiz-option w-full p-6 bg-gradient-to-r from-lavender to-cream rounded-2xl text-left font-poppins text-lg text-deep-purple border-2 border-transparent hover:border-rose-gold"
+                                data-event="click:selectAnswer" data-value="D">
+                            <span class="font-bold text-rose-gold mr-4">D.</span>
+                            Previous Life
+                        </button>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+                
+                <!-- Feedback Animation -->
+                <div id="quizFeedback" class="text-center hidden">
+                    <div class="animate-fadeInUp">
+                        <div class="text-6xl mb-4 animate-heartbeat">💖</div>
+                        <p class="font-dancing text-3xl text-rose-gold">Correct! You know us so well!</p>
+                    </div>
+                </div>
+                
+                <!-- Score Screen (shown after last question) -->
+                <div id="scoreScreen" class="text-center hidden">
+                    <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl animate-fadeInUp">
+                        <h2 class="font-dancing text-5xl md:text-6xl text-deep-purple mb-6">
+                            Perfect Score! 🎉
+                        </h2>
+                        <div class="text-8xl mb-6 animate-heartbeat">5/5</div>
+                        <p class="font-poppins text-xl text-deep-purple mb-8">
+                            You know our love story by heart! 💕
+                        </p>
+                        <button class="bg-gradient-to-r from-rose-gold to-blush text-white px-10 py-4 rounded-full font-semibold text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                                data-event="click:showGiftBox">
+                            🎁 Claim Your Surprise!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: FlirtyQuiz -->
+
+        <!-- @COMPONENT: GiftBoxReveal -->
+        <section id="giftBoxScreen" class="min-h-screen flex items-center justify-center romantic-bg relative hidden">
+            <div class="floating-hearts"></div>
+            
+            <div class="text-center z-10 px-4 max-w-4xl mx-auto">
+                <h1 class="font-dancing text-6xl md:text-8xl text-deep-purple mb-8 animate-fadeInUp">
+                    Your Gift Awaits! 🎁
+                </h1>
+                
+                <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl animate-fadeInUp" style="animation-delay: 0.5s">
+                    <div class="mb-8">
+                        <!-- @FUNCTIONALITY: Implement Lottie gift box animation -->
+                        <div class="gift-box mx-auto w-64 h-64 bg-gradient-to-br from-romantic-gold to-rose-gold rounded-3xl shadow-2xl flex items-center justify-center text-8xl cursor-pointer animate-pulse-slow"
+                             data-event="click:openGiftBox" data-mock="true" data-implementation="Replace with Lottie gift box animation">
+                            🎁
+                        </div>
+                    </div>
+                    
+                    <p class="font-poppins text-xl text-deep-purple mb-6">
+                        Click the gift box to reveal your surprise! ✨
+                    </p>
+                    
+                    <!-- Gift Reveal -->
+                    <div id="giftReveal" class="hidden animate-fadeInUp">
+                        <div class="bg-gradient-to-br from-rose-gold to-blush rounded-2xl p-8 mb-6">
+                            <div class="text-6xl mb-4" data-bind="revealedGift.emoji">💍</div>
+                            <h3 class="font-dancing text-3xl md:text-4xl text-white mb-4" data-bind="revealedGift.title">
+                                A promise of forever
+                            </h3>
+                            <p class="font-poppins text-white/90" data-bind="revealedGift.description">
+                                This isn't just a gift, it's a promise that our love will last through every sunrise and sunset.
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <button class="bg-gradient-to-r from-lavender to-deep-purple text-white px-8 py-3 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                                    data-event="click:tryAnotherGift" data-mock="true">
+                                ✨ Try Another Gift
+                            </button>
+                            <br>
+                            <button class="bg-gradient-to-r from-deep-purple to-rose-gold text-white px-10 py-4 rounded-full font-semibold text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                                    data-event="click:showLoveMessage">
+                                💌 Continue to Love Message
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: GiftBoxReveal -->
+
+        <!-- @COMPONENT: LoveMessage -->
+        <section id="loveMessageScreen" class="min-h-screen flex items-center justify-center romantic-bg relative hidden">
+            <div class="floating-hearts"></div>
+            
+            <div class="text-center z-10 px-4 max-w-4xl mx-auto">
+                <h1 class="font-dancing text-6xl md:text-8xl text-deep-purple mb-8 animate-fadeInUp">
+                    A Message from My Heart 💌
+                </h1>
+                
+                <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl animate-fadeInUp" style="animation-delay: 0.5s">
+                    <!-- @FUNCTIONALITY: Implement typewriter effect for love message -->
+                    <div class="font-poppins text-lg md:text-xl text-deep-purple leading-relaxed mb-8 text-left max-w-2xl mx-auto" 
+                         data-mock="true" data-implementation="Add typewriter effect animation">
+                        <p class="mb-6 animate-typewriter overflow-hidden whitespace-nowrap border-r-2 border-rose-gold" style="animation-delay: 1s">
+                            Mansi,
+                        </p>
+                        <p class="mb-6 animate-fadeInUp" style="animation-delay: 2s">
+                            You're the spark in my soul,<br>
+                            the calm in my chaos,<br>
+                            the reason I look forward to every tomorrow.
+                        </p>
+                        <p class="mb-6 animate-fadeInUp" style="animation-delay: 3s">
+                            Every heartbeat spells your name,<br>
+                            and I wouldn't want it any other way.
+                        </p>
+                        <p class="mb-6 animate-fadeInUp" style="animation-delay: 4s">
+                            Happy Birthday, my love.
+                        </p>
+                        <p class="font-dancing text-2xl text-rose-gold animate-fadeInUp" style="animation-delay: 5s">
+                            Forever yours,<br>
+                            Hari ❤️
+                        </p>
+                    </div>
+                    
+                    <div class="animate-fadeInUp" style="animation-delay: 6s">
+                        <div class="text-6xl mb-6 animate-heartbeat">💕</div>
+                        <p class="font-dancing text-3xl text-rose-gold mb-8 animate-pulse-slow">
+                            I love you more than words can say
+                        </p>
+                        
+                        <button class="bg-gradient-to-r from-rose-gold to-blush text-white px-10 py-4 rounded-full font-semibold text-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                                data-event="click:showFinalScreen">
+                            🎇 One More Surprise!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: LoveMessage -->
+
+        <!-- @COMPONENT: FinalScreen -->
+        <section id="finalScreen" class="min-h-screen flex items-center justify-center romantic-bg relative hidden">
+            <div class="floating-hearts"></div>
+            
+            <!-- @FUNCTIONALITY: Implement confetti explosion using react-confetti -->
+            <div id="confetti" class="absolute inset-0 pointer-events-none" data-mock="true" data-implementation="Add react-confetti component"></div>
+            
+            <div class="text-center z-10 px-4 max-w-4xl mx-auto">
+                <div class="animate-fadeInUp">
+                    <h1 class="font-dancing text-6xl md:text-8xl text-deep-purple mb-8 animate-heartbeat">
+                        Thank You! 🎉
+                    </h1>
+                </div>
+                
+                <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl animate-fadeInUp" style="animation-delay: 0.5s">
+                    <div class="text-8xl mb-8 animate-pulse-slow">💖</div>
+                    
+                    <p class="font-poppins text-2xl md:text-3xl text-deep-purple mb-6">
+                        Thanks for sharing this moment with me, Mansi
+                    </p>
+                    
+                    <p class="font-dancing text-3xl md:text-4xl text-rose-gold mb-8">
+                        I love you more every day.
+                    </p>
+                    
+                    <p class="font-poppins text-xl text-deep-purple mb-12">
+                        – Hari
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <button class="bg-gradient-to-r from-lavender to-deep-purple text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                                data-event="click:replayExperience">
+                            🔄 Replay Surprise
+                        </button>
+                        <button class="bg-gradient-to-r from-rose-gold to-blush text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                                data-event="click:sitWithMusic">
+                            🎵 Sit with the music...
+                        </button>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-gradient-to-br from-cream to-lavender rounded-2xl">
+                        <p class="font-dancing text-2xl text-deep-purple">
+                            This moment will live forever in my heart 💕
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: FinalScreen -->
+    </div>
+
+    <script>
+        // TODO: Implement React state management, component navigation, and business logic
+        
+        (function() {
+            'use strict';
+            
+            // Heart cursor effect
+            const heartCursor = document.getElementById('heartCursor');
+            document.addEventListener('mousemove', (e) => {
+                heartCursor.style.left = e.clientX + 'px';
+                heartCursor.style.top = e.clientY + 'px';
+            });
+            
+            // Create floating hearts
+            function createFloatingHeart() {
+                const heartsContainer = document.querySelector('.floating-hearts');
+                if (!heartsContainer) return;
+                
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💕';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
+                
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 9000);
+            }
+            
+            // Create hearts periodically
+            setInterval(createFloatingHeart, 2000);
+            
+            // Countdown timer (placeholder implementation)
+            function updateCountdown() {
+                const targetDate = new Date("2025-08-12T00:00:00+05:30");
+                const now = new Date();
+                const diff = targetDate - now;
+                
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    
+                    // TODO: Update actual countdown display elements
+                    console.log(`Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`);
+                } else {
+                    // TODO: Auto-transition to intro screen
+                    console.log("Birthday has arrived! Transition to intro screen.");
+                }
+            }
+            
+            // Quiz data (placeholder)
+            const quizData = [
+                {
+                    question: "Where did we first meet?",
+                    options: ["SDMA ✅", "In your dreams", "Park", "Previous Life"],
+                    correct: 0
+                },
+                {
+                    question: "What's Hari's favorite thing about Mansi?",
+                    options: ["Her magical eyes ✨", "Her laugh that heals everything", "Her hugs — better than therapy", "Literally everything ✅"],
+                    correct: 3
+                },
+                {
+                    question: "How much do you love Hari?",
+                    options: ["To the moon and never back 🌙", "As much as he loves pizza 🍕", "More than yesterday, less than tomorrow", "Infinitely, endlessly, stupidly ✅"],
+                    correct: 3
+                },
+                {
+                    question: "What would be the perfect date with Hari?",
+                    options: ["Candlelit dinner under the stars 🌌", "Movie night in cuddles and chaos 🍿", "Paris but only if he packs", "Honestly, every moment is perfect ✅"],
+                    correct: 3
+                },
+                {
+                    question: "What makes us the best couple?",
+                    options: ["We complete each other's memes", "We make storms feel like sunsets", "Our love is louder than doubts ✅", "We argue over food — then share it anyway"],
+                    correct: 2
+                }
+            ];
+            
+            // Gift options
+            const gifts = [
+                { emoji: "💍", title: "A promise of forever", description: "This isn't just a gift, it's a promise that our love will last through every sunrise and sunset." },
+                { emoji: "💋", title: "Unlimited kisses", description: "Every kiss is a reminder that you're the most precious part of my life." },
+                { emoji: "🧸", title: "One cuddle per second forever", description: "In your arms is where I find my peace, my home, my everything." },
+                { emoji: "🎶", title: "A playlist of our love", description: "Every song tells our story, every beat matches my heart when I'm with you." },
+                { emoji: "🪄", title: "A date you'll never forget (just wait)", description: "I'm planning something magical that will show you just how much you mean to me." }
+            ];
+            
+            // Start countdown timer
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // TODO: Implement screen navigation
+            // TODO: Implement quiz logic with scoring
+            // TODO: Implement gift box reveal animation
+            // TODO: Implement typewriter effect for love message
+            // TODO: Implement confetti animation
+            // TODO: Add background music controls
+            
+            console.log("Romantic birthday app initialized! 💕");
+        })();
+    </script>
+</body>
+</html>

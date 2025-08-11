@@ -5,6 +5,7 @@ import Confetti from 'react-confetti';
 interface FinalScreenProps {
   score: number;
   onReplay: () => void;
+  onNext?: () => void;
 }
 
 const FinalScreen = ({ score, onReplay }: FinalScreenProps) => {
@@ -195,6 +196,19 @@ const FinalScreen = ({ score, onReplay }: FinalScreenProps) => {
               🚪 Exit (Leave Website)
             </motion.button>
           </motion.div>
+          {/* Next button for final choice */}
+          {onNext && (
+            <motion.div className="mt-8" variants={itemVariants}>
+              <motion.button
+                className="bg-gradient-to-r from-rose-gold to-lavender text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                onClick={onNext}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                👉 Next: Make Your Choice
+              </motion.button>
+            </motion.div>
+          )}
           
           <motion.div 
             className="mt-4"

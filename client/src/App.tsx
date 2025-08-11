@@ -6,11 +6,12 @@ import FlirtyQuiz from "./components/FlirtyQuiz";
 import GiftBoxReveal from "./components/GiftBoxReveal";
 import LoveMessage from "./components/LoveMessage";
 import FinalScreen from "./components/FinalScreen";
+import FinalChoiceScreen from "./components/FinalChoiceScreen";
 import HeartCursor from "./components/HeartCursor";
 import FloatingHearts from "./components/FloatingHearts";
 import RomanticMusic from "./components/RomanticMusic";
 
-export type ScreenType = "countdown" | "intro" | "quiz" | "giftbox" | "lovemessage" | "final";
+export type ScreenType = "countdown" | "intro" | "quiz" | "giftbox" | "lovemessage" | "final" | "finalchoice";
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<ScreenType>("countdown");
@@ -88,6 +89,20 @@ function App() {
             <FinalScreen 
               score={quizScore}
               onReplay={resetExperience}
+              onNext={() => goToNextScreen("finalchoice")}
+            />
+          )}
+          {currentScreen === "finalchoice" && (
+            <FinalChoiceScreen
+              onChoose={(choice) => {
+                if (choice === "want") {
+                  alert("Aww! You want me! 💖");
+                  resetExperience();
+                } else {
+                  alert("Oh no! You wanna break up? 💔");
+                  resetExperience();
+                }
+              }}
             />
           )}
         </motion.div>
